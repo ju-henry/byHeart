@@ -40,3 +40,37 @@ button {
 .dot.active {
   background-color: #4CAF50;
 }
+
+.landing-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.mode-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.mode-button {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.mode-button:hover {
+  transform: scale(1.05);
+}
+
+.mode-button img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.mode-button p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+

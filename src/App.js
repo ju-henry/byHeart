@@ -1,6 +1,7 @@
 // App.js
 import React, { useState } from 'react';
 import './App.css';
+import LandingPage from './LandingPage';
 
 function App() {
   const [cards, setCards] = useState([
@@ -10,15 +11,43 @@ function App() {
   ]);
   const [currentCard, setCurrentCard] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [mode, setMode] = useState('landing'); // 'landing', 'regular', or 'random'
+  const [cardOrder, setCardOrder] = useState([]);
+  const [cardsViewed, setCardsViewed] = useState(0);
 
   const flipCard = () => {
     setShowTranslation(!showTranslation);
   };
 
   const nextCard = () => {
-    setCurrentCard((prev) => (prev + 1) % cards.length);
+    setCardsViewed((prev) => (prev + 1) % cards.length);
+    if (mode === 'regular') {
+      setCurrentCard((prev) => (prev + 1) % cards.length);
+    } else {
+      const currentIndex = cardOrder.indexOf(currentCard);
+      const nextIndex = (currentIndex + 1) % cards.length;
+      setCurrentCard(cardOrder[nextIndex]);
+    }
     setShowTranslation(false);
   };
+
+  const startRegularMode = () => {
+    setMode('regular');
+    setCurrentCard(0);
+    setCardsViewed(0);
+  };
+
+  const startRandomMode = () => {
+    setMode('random');
+    const shuffled = [...Array(cards.length).keys()].sort(() => Math.random() - 0.5);
+    setCardOrder(shuffled);
+    setCurrentCard(shuffled[0]);
+    setCardsViewed(0);
+  };
+
+  if (mode === 'landing') {
+    return <LandingPage onRegularMode={startRegularMode} onRandomMode={startRandomMode} />;
+  }
 
   return (
     <div className="App">
@@ -28,10 +57,10 @@ function App() {
       </div>
       <button onClick={nextCard}>Next Card</button>
       <div className="progress-bar">
-        {cards.map((card, index) => (
+        {cards.map((_, index) => (
           <span 
-            key={card.id} 
-            className={`dot ${index === currentCard ? 'active' : ''}`}
+            key={index} 
+            className={`dot ${index === cardsViewed ? 'active' : ''}`}
           ></span>
         ))}
       </div>
