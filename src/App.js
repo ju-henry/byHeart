@@ -14,6 +14,7 @@ function App() {
   const [mode, setMode] = useState('landing'); // 'landing', 'regular', or 'random'
   const [cardOrder, setCardOrder] = useState([]);
   const [cardsViewed, setCardsViewed] = useState(0);
+  const [initialFlipState, setInitialFlipState] = useState(false);
 
   const flipCard = () => {
     setShowTranslation(!showTranslation);
@@ -28,21 +29,29 @@ function App() {
       const nextIndex = (currentIndex + 1) % cards.length;
       setCurrentCard(cardOrder[nextIndex]);
     }
-    setShowTranslation(false);
+    setShowTranslation(initialFlipState); // Reset to initial flip state
   };
 
-  const startRegularMode = () => {
+  const startRegularMode = (flipCards) => {
     setMode('regular');
     setCurrentCard(0);
     setCardsViewed(0);
+    setShowTranslation(flipCards);
+    setInitialFlipState(flipCards);
   };
 
-  const startRandomMode = () => {
+  const startRandomMode = (flipCards) => {
     setMode('random');
     const shuffled = [...Array(cards.length).keys()].sort(() => Math.random() - 0.5);
     setCardOrder(shuffled);
     setCurrentCard(shuffled[0]);
     setCardsViewed(0);
+    setShowTranslation(flipCards);
+    setInitialFlipState(flipCards);
+  };
+
+  const goLandingPage = () => {
+    setMode('landing');
   };
 
   if (mode === 'landing') {
@@ -64,6 +73,7 @@ function App() {
           ></span>
         ))}
       </div>
+      <button onClick={goLandingPage}>End</button>
     </div>
   );
 }
