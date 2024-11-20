@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import LandingPage from './LandingPage';
 
@@ -31,6 +31,38 @@ function App() {
     }
     setShowTranslation(initialFlipState); // Reset to initial flip state
   };
+
+  const previousCard = () => {
+    setCardsViewed((prev) => (prev - 1 + cards.length) % cards.length);
+    if (mode === 'regular') {
+      setCurrentCard((prev) => (prev - 1 + cards.length) % cards.length);
+    } else {
+      const currentIndex = cardOrder.indexOf(currentCard);
+      const nextIndex = (currentIndex - 1 + cards.length) % cards.length;
+      setCurrentCard(cardOrder[nextIndex]);
+    }
+    setShowTranslation(initialFlipState); // Reset to initial flip state
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (mode !== 'landing') {
+        if (event.key === 'ArrowLeft') {
+          previousCard();
+        } else if (event.key === 'ArrowRight') {
+          nextCard();
+        }
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mode, previousCard, nextCard]);
+  
 
   const startRegularMode = (flipCards) => {
     setMode('regular');
@@ -64,7 +96,10 @@ function App() {
       <div className="flashcard" onClick={flipCard}>
         <h2>{showTranslation ? cards[currentCard].translation : cards[currentCard].word}</h2>
       </div>
-      <button onClick={nextCard}>Next Card</button>
+      <div className="button-container">
+        <button onClick={previousCard}>&lt;&lt; Previous</button>
+        <button onClick={nextCard}>Next &gt;&gt;</button>
+  </div>
       <div className="progress-bar">
         {cards.map((_, index) => (
           <span 
