@@ -1,7 +1,7 @@
 // LandingPage.js
 import React, { useState, useEffect } from 'react';
 
-function LandingPage({ onRegularMode, onRandomMode }) {
+function LandingPage({ onExploreMode, onRegularMode, onRandomMode }) {
   const [flipCards, setFlipCards] = useState(() => {
     const saved = localStorage.getItem('flipCards');
     return saved !== null ? JSON.parse(saved) : false;
@@ -37,6 +37,7 @@ function LandingPage({ onRegularMode, onRandomMode }) {
       .catch(error => console.error('Error loading CSV file:', error));
   };
 
+  const handleExploreMode = () => onExploreMode(cards);
   const handleRegularMode = () => onRegularMode(flipCards, cards);
   const handleRandomMode = () => onRandomMode(flipCards, cards);
 
@@ -54,6 +55,13 @@ function LandingPage({ onRegularMode, onRandomMode }) {
           <option value="vocab1">Vocabulaire 1</option>
           <option value="vocab2">Vocabulaire 2</option>
         </select>
+      </div>
+
+      <div className="mode-buttons">
+        <div className="mode-button" onClick={handleExploreMode}>
+          <img src="/cards.png" alt="Explore Mode" style={{ width: '100%', height: 'auto' }} />
+          <p>Explore vocabulary</p>
+        </div>
       </div>
 
       <div className="mode-buttons">

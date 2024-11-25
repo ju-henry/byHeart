@@ -18,7 +18,7 @@ function App() {
 
   const nextCard = () => {
     setCardsViewed((prev) => (prev + 1) % cards.length);
-    if (mode === 'regular') {
+    if (mode === 'regular' || mode === 'explore') {
       setCurrentCard((prev) => (prev + 1) % cards.length);
     } else {
       const currentIndex = cardOrder.indexOf(currentCard);
@@ -30,7 +30,7 @@ function App() {
 
   const previousCard = () => {
     setCardsViewed((prev) => (prev - 1 + cards.length) % cards.length);
-    if (mode === 'regular') {
+    if (mode === 'regular' || mode === 'explore') {
       setCurrentCard((prev) => (prev - 1 + cards.length) % cards.length);
     } else {
       const currentIndex = cardOrder.indexOf(currentCard);
@@ -58,13 +58,20 @@ function App() {
     };
   }, [mode]);
 
+  const startExploreMode = (loadedCards) => {
+    setMode('explore');
+    setCurrentCard(0);
+    setCardsViewed(0);
+    setCards(loadedCards); 
+  };
+
   const startRegularMode = (flipCards, loadedCards) => {
     setMode('regular');
     setCurrentCard(0);
     setCardsViewed(0);
     setShowTranslation(flipCards);
     setInitialFlipState(flipCards);
-    setCards(loadedCards); // Mettre à jour les cartes avec celles chargées
+    setCards(loadedCards); 
   };
 
   const startRandomMode = (flipCards, loadedCards) => {
@@ -75,7 +82,7 @@ function App() {
     setCardsViewed(0);
     setShowTranslation(flipCards);
     setInitialFlipState(flipCards);
-    setCards(loadedCards); // Mettre à jour les cartes avec celles chargées
+    setCards(loadedCards);
   };
 
   const goLandingPage = () => {
@@ -83,15 +90,26 @@ function App() {
   };
 
   if (mode === 'landing') {
-    return <LandingPage onRegularMode={startRegularMode} onRandomMode={startRandomMode} />;
+    return <LandingPage onExploreMode={startExploreMode} onRegularMode={startRegularMode} onRandomMode={startRandomMode} />;
   }
 
   return (
     <div className="App">
       <h1>Vocabulary Flashcards</h1>
-      <div className="flashcard" onClick={flipCard}>
-        <h2>{showTranslation ? cards[currentCard].translation : cards[currentCard].word}</h2>
-      </div>
+      {mode === 'explore' ? (
+        <>
+          <div className="flashcard">
+            <h2>{cards[currentCard].word}</h2>
+          </div>
+          <div className="flashcard">
+            <h2>{cards[currentCard].translation}</h2>
+          </div>
+        </>
+      ) : (
+        <div className="flashcard" onClick={flipCard}>
+          <h2>{showTranslation ? cards[currentCard].translation : cards[currentCard].word}</h2>
+        </div>
+      )}
       <div className="button-container">
         <button onClick={previousCard}>&lt;&lt; Previous</button>
         <button onClick={nextCard}>Next &gt;&gt;</button>
