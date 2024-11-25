@@ -59,7 +59,7 @@ function LandingPage({ onExploreMode, onRegularMode, onRandomMode }) {
 
       <div className="mode-buttons">
         <div className="mode-button" onClick={handleExploreMode}>
-          <img src="/cards.png" alt="Explore Mode" style={{ width: '100%', height: 'auto' }} />
+          <img src="/explore_cards.png" alt="Explore Mode" style={{ width: '80%', height: 'auto' }} />
           <p>Explore vocabulary</p>
         </div>
       </div>
