@@ -1,5 +1,5 @@
 // App.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import LandingPage from './LandingPage';
 
@@ -16,7 +16,7 @@ function App() {
     setShowTranslation(!showTranslation);
   };
 
-  const nextCard = () => {
+  const nextCard = useCallback(() => {
     setCardsViewed((prev) => (prev + 1) % cards.length);
     if (mode === 'regular' || mode === 'explore') {
       setCurrentCard((prev) => (prev + 1) % cards.length);
@@ -26,9 +26,9 @@ function App() {
       setCurrentCard(cardOrder[nextIndex]);
     }
     setShowTranslation(initialFlipState);
-  };
-
-  const previousCard = () => {
+  }, [cards.length, mode, cardOrder, currentCard, initialFlipState]);
+  
+  const previousCard = useCallback(() => {
     setCardsViewed((prev) => (prev - 1 + cards.length) % cards.length);
     if (mode === 'regular' || mode === 'explore') {
       setCurrentCard((prev) => (prev - 1 + cards.length) % cards.length);
@@ -38,7 +38,8 @@ function App() {
       setCurrentCard(cardOrder[nextIndex]);
     }
     setShowTranslation(initialFlipState);
-  };
+  }, [cards.length, mode, cardOrder, currentCard, initialFlipState]);
+  
 
   useEffect(() => {
     const handleKeyDown = (event) => {
