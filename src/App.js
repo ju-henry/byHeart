@@ -56,7 +56,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [mode]);
+  }, [mode, nextCard, previousCard]);
 
   const startExploreMode = (loadedCards) => {
     setMode('explore');
