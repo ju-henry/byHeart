@@ -45,6 +45,13 @@ function LandingPage({ onExploreMode, onRegularMode, onRandomMode }) {
     <div className="landing-page">
       <h1>Vocabulary Flashcards</h1>
       
+      <div className="flags">
+        <img src="flag_germany.png" alt="German Flag" className="flag" />
+        <img src="flag_france.png" alt="French Flag" className="flag" />
+      </div>
+
+      <h1>German & French</h1>
+
       <div className="vocabulary-select">
         <label htmlFor="vocabulary-list">Choose a vocabulary list: </label>
         <select 
@@ -59,7 +66,7 @@ function LandingPage({ onExploreMode, onRegularMode, onRandomMode }) {
 
       <div className="mode-buttons">
         <div className="mode-button" onClick={handleExploreMode}>
-          <img src="/explore_cards.png" alt="Explore Mode" style={{ width: '80%', height: 'auto' }} />
+          <img src="/explore_cards.png" alt="Explore Mode" style={{ width: '60%', height: 'auto' }} />
           <p>Explore vocabulary</p>
         </div>
       </div>
@@ -67,11 +74,11 @@ function LandingPage({ onExploreMode, onRegularMode, onRandomMode }) {
       <div className="mode-buttons">
         <div className="mode-button" onClick={handleRegularMode}>
           <img src="/cards.png" alt="Regular Mode" style={{ width: '100%', height: 'auto' }} />
-          <p>Regular Order</p>
+          <p>Learn in <br />Regular Order</p>
         </div>
         <div className="mode-button" onClick={handleRandomMode}>
           <img src="/shuffled_cards.png" alt="Random Mode" style={{ width: '100%', height: 'auto' }} />
-          <p>Random Order</p>
+          <p>Learn in <br />Random Order</p>
         </div>
       </div>
 
