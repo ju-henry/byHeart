@@ -59,8 +59,10 @@ function LandingPage({ onExploreMode, onRegularMode, onRandomMode }) {
           value={selectedList} 
           onChange={(e) => setSelectedList(e.target.value)}
         >
-          <option value="vocab1">Vocabulaire 1</option>
-          <option value="vocab2">Vocabulaire 2</option>
+          <option value="body">1. der Körper / le corps</option>
+          <option value="food">2. die Nahrung / l'alimentation</option>
+          <option value="house">3. das Haus / la maison</option>
+          <option value="relationships">4. die Beziehungen / les relations</option>
         </select>
       </div>
 
