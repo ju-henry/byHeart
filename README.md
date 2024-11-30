@@ -1,7 +1,4 @@
-# Learn German <span class="fi fi-de" style="center"></span> & French <span class="fi fi-fr" style="center"></span> words by heart!
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
-
+# Learn German 🇩🇪 & French 🇫🇷 words by heart!
 
 ### **byHeart** allows users to learn 170 common words using flashcards. <br><br>
 
